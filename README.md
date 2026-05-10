@@ -52,8 +52,9 @@ Variáveis de Ambiente: Credenciais de banco de dados não são expostas no cód
 [ ] Documentação interativa com Swagger/OpenAPI.
 
 Gerando o .env.example para completar o pacote
-env_example = """DB_HOST=localhost
+env_example = 
+DB_HOST=localhost
 DB_PORT=5432
 DB_USER=admin
-DB_PASS=5030
+DB_PASS=password
 DB_NAME=cafeteira
