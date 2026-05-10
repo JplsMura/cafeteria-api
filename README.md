@@ -1,59 +1,81 @@
-⚙️ Configuração e Execução
+# Cafeteria API ☕
 
-Pré-requisitos
-Go 1.22 ou superior instalado.
+Uma API REST robusta e escalável desenvolvida em **Go**, projetada para o gerenciamento eficiente de uma cafeteria. Este projeto aplica os princípios de **Clean Architecture**, garantindo um código desacoplado, fácil de testar e manter.
 
-Docker e Docker Compose instalados.
+---
 
-Passos para Rodar
-1. Clone o repositório:
+## 🚀 Diferenciais do Projeto
 
-    {git clone [https://github.com/seu-usuario/cafeteria-api.git](https://github.com/seu-usuario/cafeteria-api.git)
-cd cafeteria-api}
+* **Arquitetura Limpa**: Separação clara entre Domínio, Casos de Uso (Service) e Infraestrutura.
+* **Go 1.22+ Native Routing**: Utilização do novo `ServeMux` com suporte a verbos HTTP e wildcards diretamente no roteador padrão.
+* **Resiliência**: Validações de regras de negócio integradas ao domínio.
+* **Observabilidade**: Middleware de Logging customizado para monitoramento de latência e tráfego.
+* **Containerização**: Ambiente totalmente configurado com Docker e Docker Compose.
 
-2. Configure o ambiente:
-    Crie um arquivo .env na raiz baseado no .env.example:
+## 🛠️ Tecnologias Utilizadas
 
-    {cp .env.example .env}
+* **Linguagem**: [Go 1.22+](https://go.dev/)
+* **Banco de Dados**: [PostgreSQL](https://www.postgresql.org/)
+* **Orquestração**: [Docker](https://www.docker.com/) & Docker Compose
+* **Variáveis de Ambiente**: `godotenv`
+* **Driver DB**: `lib/pq`
 
-3. Suba o banco de dados:
-    {docker-compose up -d}
+## 🏗️ Estrutura de Pastas
 
-4. Inicie o servidor:
-    {go run cmd/server/main.go}
+```text
+.
+├── cmd/server/          # Ponto de entrada (Main)
+├── internal/
+│   ├── database/       # Driver e Singleton de conexão
+│   ├── domain/         # Entidades e Interfaces (Core)
+│   ├── handler/        # Camada de Transporte (HTTP)
+│   ├── middleware/     # Filtros e Logs
+│   ├── repository/     # Implementação SQL (Data Access)
+│   └── service/        # Lógica de Negócio (Usecases)
+├── sql/                # Scripts de Migração (init.sql)
+└── docker-compose.yml  # Infraestrutura local
+```
 
-O servidor estará disponível em http://localhost:8080.
+## ⚙️ Como Executar
 
-📌 Endpoints da API
+### 1. Clonar e Configurar
+```bash
+git clone https://github.com/JplsMura/cafeteria-api.git
+cd cafeteria-api
+cp .env.example .env
+```
+*Certifique-se de preencher os dados no `.env` conforme o seu ambiente.*
 
-Clientes
+### 2. Subir Infraestrutura (Docker)
+```bash
+docker-compose up -d
+```
 
-Método|Endpoint|Descrição
+### 3. Rodar a API
+```bash
+go run cmd/server/main.go
+```
+A API estará disponível em: `http://localhost:8080`
 
-GET     | /clientes        | Lista todos os clientes cadastrados
-POST    | /clientes        | Cadastra um novo cliente (Valida nome/idade)
-PUT     | /clientes/{id}   | Atualiza dados de um cliente existente
-DELETE  | /clientes/{id}   | Remove um cliente do sistema
+## 📌 Endpoints (Clientes)
 
-🛡️ Validações e Segurança
-Domínio Protegido: O sistema impede o cadastro de clientes com nomes vazios ou idades inconsistentes (negativas ou acima de 130 anos).
+| Método | Endpoint | Descrição | Status Code |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/clientes` | Lista todos os clientes | 200 |
+| `POST` | `/clientes` | Cadastra novo cliente | 201 |
+| `PUT` | `/clientes/{id}` | Atualiza dados cadastrais | 200 |
+| `DELETE` | `/clientes/{id}` | Remove cliente do sistema | 204 |
 
-Logging Middleware: Todas as operações são logadas no terminal, informando o Método, Rota, IP e o Tempo de Execução.
+## 🛡️ Regras de Domínio
+- **Validação Automática**: Bloqueio de nomes vazios e idades fora do range (0-130 anos).
+- **Segurança de Dados**: Uso de Prepared Statements para evitar SQL Injection.
+- **Middleware de Log**: Registro automático de Método, Path, Origem e Tempo de Resposta no console.
 
-Variáveis de Ambiente: Credenciais de banco de dados não são expostas no código, sendo carregadas via .env.
+## 🗺️ Roadmap de Evolução
+- [ ] Testes Unitários (Table-driven tests)
+- [ ] Encerramento elegante (Graceful Shutdown)
+- [ ] Módulo de Produtos e Pedidos
+- [ ] Documentação com Swagger/OpenAPI
 
-🗺️ Roadmap de Evolução
-[ ] Implementação de Testes Unitários com testing do Go.
-
-[ ] Implementação de Graceful Shutdown.
-
-[ ] CRUD de Produtos e Pedidos.
-
-[ ] Documentação interativa com Swagger/OpenAPI.
-
-Gerando o .env.example para completar o pacote
-env_example = """DB_HOST=localhost
-DB_PORT=5432
-DB_USER=admin
-DB_PASS=5030
-DB_NAME=cafeteira
+---
+Desenvolvido por [João Pedro Lima Santos](https://github.com/JplsMura)
