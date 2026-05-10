@@ -1,6 +1,9 @@
 package domain
 
-import "errors"
+import (
+	"context"
+	"errors"
+)
 
 type Cliente struct {
 	ID         int     `json:"id"`
@@ -24,9 +27,9 @@ func (c *Cliente) Validate() error {
 }
 
 type ClienteRepository interface {
-	Create(c *Cliente) error
-	GetByID(id int) (*Cliente, error)
-	GetAll() ([]Cliente, error)
-	Update(c *Cliente) error
-	Delete(id int) error
+	Create(ctx context.Context, c *Cliente) error
+	GetByID(ctx context.Context, id int) (*Cliente, error)
+	GetAll(ctx context.Context, limit, offset int) ([]Cliente, error)
+	Update(ctx context.Context, c *Cliente) error
+	Delete(ctx context.Context, id int) error
 }
