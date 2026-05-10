@@ -1,0 +1,18 @@
+# Binários
+main
+server
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+.env
+
+# Dependências e IDEs
+vendor/
+.vscode/
+.idea/
+
+# Docker logs
+*.log

@@ -1,0 +1,12 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: cafeteira_db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 5030
+      POSTGRES_DB: cafeteira
+    ports:
+      - "5432:5432"
+    volumes:
+      - ../init.sql:/docker-entrypoint-initdb.d/init.sql
