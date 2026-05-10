@@ -77,24 +77,5 @@ A API estará disponível em: `http://localhost:8080`
 - [ ] Módulo de Produtos e Pedidos
 - [ ] Documentação com Swagger/OpenAPI
 
-<<<<<<< HEAD
 ---
 Desenvolvido por [João Pedro Lima Santos](https://github.com/JplsMura)
-=======
-🗺️ Roadmap de Evolução
-[ ] Implementação de Testes Unitários com testing do Go.
-
-[ ] Implementação de Graceful Shutdown.
-
-[ ] CRUD de Produtos e Pedidos.
-
-[ ] Documentação interativa com Swagger/OpenAPI.
-
-Gerando o .env.example para completar o pacote
-env_example = 
-DB_HOST=localhost
-DB_PORT=5432
-DB_USER=admin
-DB_PASS=password
-DB_NAME=cafeteira
->>>>>>> 53d522a962c4ab649c0de54a34445d3573981082
